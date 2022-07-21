@@ -1,4 +1,4 @@
-.toto {
+.modal-type {
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -9,4 +9,9 @@
   flex-direction: column;
   padding: 3rem;
   border-radius: 0.5rem;
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
 }

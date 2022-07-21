@@ -3,6 +3,8 @@ import {Edit} from "@mui/icons-material";
 import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
+import '../../assets/css/component/_type.scss'
+import axios from "axios";
 
 function EditType(props) {
     const [id, setID] = useState("");
@@ -20,13 +22,7 @@ function EditType(props) {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
-            let res = await fetch("http://127.0.0.1:8000/api/types/" + oneType.id, {
-                method: "PATCH",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedPark),
-            })
+            let res = await axios.patch("http://127.0.0.1:8000/api/types/" + oneType.id, {name})
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})
@@ -57,7 +53,7 @@ function EditType(props) {
             aria-labelledby="edit-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="toto" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de voiture</Typography>
                 <form onSubmit={handleSubmit(editTypeForm)}>
                     <FormControl>
@@ -84,7 +80,7 @@ function EditType(props) {
                             {errors.name ? (
                                 <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.name?.message}</Alert>
                             ) : ''}
-                        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'right'}}>
+                        <Box className="action-button">
                             <Button type="submit" sx={{m: 3}} variant="contained">Envoyer</Button>
                             <Button variant="outlined" onClick={() => setShowEdit(false)}>Fermer</Button>
                         </Box>

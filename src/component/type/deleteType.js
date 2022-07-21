@@ -2,6 +2,8 @@ import {Box, Button, FormControl, Modal, Snackbar, Typography, Alert} from "@mui
 import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
+import '../../assets/css/component/_type.scss'
+import axios from "axios";
 
 function DeleteType(props) {
 
@@ -13,9 +15,7 @@ function DeleteType(props) {
     let deleteType = async (e) => {
         e.preventDefault();
         try {
-            let res = await fetch('http://127.0.0.1:8000/api/types/' + oneType.id, {
-                method: 'DELETE'
-            })
+            let res = await axios.delete('http://127.0.0.1:8000/api/types/' + oneType.id)
             if (res.status === 200) {
                 const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})
@@ -47,14 +47,14 @@ function DeleteType(props) {
                 aria-labelledby="delete-type-title"
                 aria-describedby="child-modal-description"
             >
-                <Box className="toto" sx={{bgcolor: 'background.default'}}>
+                <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-type-title">Supprimer un type de
                         voiture</Typography>
                     <FormControl>
                         <Box>
                             êtes vous sur de vouloir supprimer le type : {oneType.name}?
                         </Box>
-                        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'right'}}>
+                        <Box className="action-button">
                             <Button sx={{m: 3}} type="submit" variant="contained" onClick={deleteType}>Envoyer</Button>
                             <Button variant="outlined" onClick={() => setShowDelete(false)}>Fermer</Button>
                         </Box>

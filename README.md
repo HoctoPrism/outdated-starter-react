@@ -17,6 +17,7 @@ On retrouve :
 - react-router-dom : **6.3.0**
 - redux-thunk : **2.4.1**
 - sass : **1.52.3**
+- axios: **0.27.2**,
 
 
 Il est possible de modifier le theme dans `component/partials/_theme` et les deux fichiers de theme, dark et light theme.

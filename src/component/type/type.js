@@ -19,6 +19,7 @@ import {
 import DeleteType from "./deleteType";
 import NewType from "./newType";
 import EditType from "./editType";
+import axios from "axios";
 
 function Type() {
 
@@ -43,20 +44,17 @@ function Type() {
     };
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/types`)
-            .then((response) => response.json())
-            .then((actualData) => {
-                setLoading(true)
-                setData(actualData.data);
-                setError(null);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setData(null);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        axios.get('http://127.0.0.1:8000/api/types').then((actualData) => {
+            actualData = actualData.data;
+            setLoading(true)
+            setData(actualData.data);
+            setError(null);
+        }).catch((err) => {
+            setError(err.message);
+            setData(null);
+        }).finally(() => {
+            setLoading(false);
+        });
     }, []);
 
     const handleDataChange = async (dataChange, message) => {

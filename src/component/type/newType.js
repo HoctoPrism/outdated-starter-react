@@ -2,6 +2,8 @@ import {Box, Button, FormControl, Modal, Snackbar, TextField, Typography, Alert,
 import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
+import '../../assets/css/component/_type.scss'
+import axios from "axios";
 
 function NewType(props) {
 
@@ -15,20 +17,10 @@ function NewType(props) {
 
     let newTypeForm = async () => {
         try {
-            let newType = {
-                id: id ? parseInt(id) : (props.newValue.data.at(-1).id + 1),
-                name: name,
-            }
-            let res = await fetch("http://127.0.0.1:8000/api/types/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newType),
-            });
+            let res = await axios.post('http://127.0.0.1:8000/api/types/', {name})
             if (res.status === 200) {
                 let tab = {};
-                await res.json().then((data) => { Object.assign(tab, data.data) });
+                await Object.assign(tab, res.data.data);
                 let data = update(props.newValue.data, {$push: [{id : tab.id, name: tab.name}]})
                 props.handleDataChange(data);
                 setName("");
@@ -51,7 +43,7 @@ function NewType(props) {
             aria-labelledby="new-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="toto" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de voiture</Typography>
                 <form onSubmit={handleSubmit(newTypeForm)}>
                     <FormControl>
@@ -79,7 +71,7 @@ function NewType(props) {
                         {errors.name ? (
                             <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.name?.message}</Alert>
                         ) : ''}
-                        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'right', mt:5}}>
+                        <Box className="action-button">
                             <Button type="submit" sx={{m: 3}} variant="contained">Envoyer</Button>
                             <Button variant="outlined" onClick={() => setShowNew(false)}>Fermer</Button>
                         </Box>
