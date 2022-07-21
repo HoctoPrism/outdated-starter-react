@@ -20,6 +20,7 @@ import App from './App';
 import Home from "./component/home/home";
 import Type from "./component/type/type";
 import {Navbar} from "./component/_partials/_navbar/_navbar";
+import {Footer} from "./component/_partials/_footer/_footer";
 
 function CustomTheme() {
 
@@ -64,6 +65,7 @@ function CustomTheme() {
                     }/>
                 </Routes>
             </BrowserRouter>
+            <Footer />
         </ThemeProvider>
     </ColorContext.Provider>
 }

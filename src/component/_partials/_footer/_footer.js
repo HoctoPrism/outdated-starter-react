@@ -1,21 +1,26 @@
-import {AppBar, Box, Button} from "@mui/material";
-import {SwitchModeButton} from "../_theme/_switchModeButton";
+import {AppBar, Box, Link} from "@mui/material";
 import {useEffect} from "react";
+import '../../../assets/css/component/_footer.scss'
 
-export function Navbar() {
+export function Footer() {
 
     useEffect(() => {
     }, [])
 
     return (
-        <Box sx={{flexGrow: 1}}>
-            <AppBar className='header'>
-                <Box sx={{m: 5, flexGrow: 1}} component="div">{document.title}</Box>
-                <Box sx={{display: 'flex', justifyContent: "flex-end", alignItems: "center"}}>
-                    <Button color="secondary" href='/'>Accueil</Button>
-                    <SwitchModeButton/>
-                </Box>
-            </AppBar>
-        </Box>
+         <AppBar position="fixed" color="primary" className='footer-container' sx={{ top: 'auto', bottom: 0, minHeight: "50px" }}>
+             <Box>
+                 Developped by <Link
+                     href="https://github.com/HoctoPrism"
+                     underline='none'
+                     rel="noopener"
+                     target="_blank"
+                     sx={{ color: 'primary.contrastText', fontWeight: 'bold' }}
+                 >
+                     @HoctoPrism
+                 </Link> on GitHub
+             </Box>
+         </AppBar>
+
     )
 }
