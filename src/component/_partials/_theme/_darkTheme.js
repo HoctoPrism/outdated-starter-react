@@ -104,6 +104,16 @@ export const darkTheme = {
                     }
                 }
             }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-disabled": {
+                        backgroundColor: '#394248',
+                        color: '#fff'
+                    }
+                }
+            }
         }
     }
 };

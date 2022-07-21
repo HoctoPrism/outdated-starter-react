@@ -95,4 +95,15 @@ export const lightTheme = {
         fontWeightBold: 700,
         htmlFontSize: 16,
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-disabled": {
+                        color: 'rgba(0, 0, 0, 0.38)'
+                    }
+                }
+            }
+        }
+    }
 };
