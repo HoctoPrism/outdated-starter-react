@@ -1,8 +1,10 @@
 /* Liste des feuilles de style */
 
-@import "src/assets/css/component/_App.scss";
-@import "src/assets/css/component/_footer.scss";
-@import "src/assets/css/component/_home.scss";
-@import "src/assets/css/component/_navbar.scss";
-@import "src/assets/css/component/_theme.scss";
-@import "src/assets/css/component/_type.scss";
+@import "assets/css/App";
+
+@import "assets/css/component/_partials/footer";
+@import "assets/css/component/_partials/navbar";
+@import "assets/css/component/_partials/theme";
+
+@import "assets/css/component/home";
+@import "assets/css/component/type";

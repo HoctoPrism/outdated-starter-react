@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
-import './assets/css/component/_theme.scss';
+import './assets/css/component/_partials/_theme.scss';
 
 import {Provider} from 'react-redux';
 import store from './store'

@@ -1,7 +1,7 @@
 import {AppBar, Box, Button} from "@mui/material";
 import {SwitchModeButton} from "../_theme/_switchModeButton";
 import {useEffect} from "react";
-import '../../../assets/css/component/_navbar.scss';
+import '../../../assets/css/component/_partials/_navbar.scss';
 
 export function Navbar() {
 

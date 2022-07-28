@@ -1,6 +1,6 @@
 import {AppBar, Box, Link} from "@mui/material";
 import {useEffect} from "react";
-import '../../../assets/css/component/_footer.scss'
+import '../../../assets/css/component/_partials/_footer.scss'
 
 export function Footer() {
 
