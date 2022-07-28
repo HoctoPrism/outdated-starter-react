@@ -1,5 +1,7 @@
-.footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#footer {
+  &.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

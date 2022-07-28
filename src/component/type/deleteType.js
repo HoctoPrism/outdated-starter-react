@@ -2,7 +2,6 @@ import {Box, Button, FormControl, Modal, Snackbar, Typography, Alert} from "@mui
 import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
-import '../../assets/css/component/_type.scss'
 import axios from "axios";
 
 function DeleteType(props) {
@@ -41,6 +40,7 @@ function DeleteType(props) {
                 <DeleteForeverRounded/>
             </Button>
             <Modal
+                id="modal-type-container"
                 hideBackdrop
                 open={delType}
                 onClose={() => setShowDelete(false)}

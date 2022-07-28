@@ -10,7 +10,7 @@ export function Navbar() {
 
     return (
         <Box sx={{flexGrow: 1}}>
-            <AppBar className='header'>
+            <AppBar className='header' id="navbar">
                 <Box sx={{m: 5, flexGrow: 1}} component="div">{document.title}</Box>
                 <Box className="navbar">
                     <Button color="secondary" href='/'>Accueil</Button>

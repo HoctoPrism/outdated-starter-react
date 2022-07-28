@@ -3,7 +3,6 @@ import {Edit} from "@mui/icons-material";
 import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
-import '../../assets/css/component/_type.scss'
 import axios from "axios";
 
 function EditType(props) {
@@ -38,7 +37,7 @@ function EditType(props) {
         }
     }
 
-    return(<Box>
+    return(<Box >
           <Button color='info' variant='contained' sx={{mx: 2}}
             onClick={() => {
                 setShowEdit(true)
@@ -47,6 +46,7 @@ function EditType(props) {
               <Edit/>
           </Button>
          <Modal
+            id="modal-type-container"
             hideBackdrop
             open={editType}
             onClose={() => setShowEdit(false)}

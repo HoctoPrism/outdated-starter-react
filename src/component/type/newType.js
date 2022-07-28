@@ -2,7 +2,6 @@ import {Box, Button, FormControl, Modal, Snackbar, TextField, Typography, Alert,
 import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
-import '../../assets/css/component/_type.scss'
 import axios from "axios";
 
 function NewType(props) {
@@ -37,6 +36,7 @@ function NewType(props) {
     return (<Box>
         <Button variant="contained" onClick={() => setShowNew(true)}>Ajouter</Button>
         <Modal
+            id="modal-type-container"
             hideBackdrop
             open={newType}
             onClose={() => setShowNew(false)}

@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from "react";
-import '../../App.css';
-import '../../assets/css/component/_type.scss'
 import {
     Box,
     Container,
@@ -68,7 +66,7 @@ function Type() {
         }
     }
 
-    return <Container maxWidth="md">
+    return <Container maxWidth="md" id="type">
         <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', py: 10}}>
             <Typography variant="h3" sx={{textAlign: "center"}} gutterBottom>Types de voiture</Typography>
             {loading ? (

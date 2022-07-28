@@ -8,7 +8,7 @@ export function Footer() {
     }, [])
 
     return (
-         <AppBar position="fixed" color="primary" className='footer-container' sx={{ top: 'auto', bottom: 0, minHeight: "50px" }}>
+         <AppBar id="footer" position="fixed" color="primary" className='footer-container' sx={{ top: 'auto', bottom: 0, minHeight: "50px" }}>
              <Box>
                  Developped by <Link
                      href="https://github.com/HoctoPrism"
