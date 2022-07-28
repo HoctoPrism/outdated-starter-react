@@ -70,7 +70,7 @@ function Type() {
         <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', py: 10}}>
             <Typography variant="h3" sx={{textAlign: "center"}} gutterBottom>Types de voiture</Typography>
             {loading ? (
-                <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement des parkings...</Typography>
+                <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement des types...</Typography>
             ) : (
                 <Box sx={{ maxWidth: '100%' }}>
                     <NewType newValue={{data}} handleDataChange={handleDataChange} />

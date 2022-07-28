@@ -8,7 +8,7 @@ import axios from "axios";
 function EditType(props) {
     const [id, setID] = useState("");
     const [name, setName] = useState("");
-    const [oneType, setOneType] = useState(""); // get parking
+    const [oneType, setOneType] = useState("");
     const [editType, setShowEdit] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
