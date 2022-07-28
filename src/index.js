@@ -56,7 +56,7 @@ function CustomTheme() {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<RouteService Component={Home}/>}>Accueil</Route>
-                    <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
+                    {/*<Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>*/}
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
