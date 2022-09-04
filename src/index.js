@@ -21,6 +21,9 @@ import Home from "./component/home/home";
 import Type from "./component/type/type";
 import {Navbar} from "./component/_partials/_navbar/_navbar";
 import {Footer} from "./component/_partials/_footer/_footer";
+import Login from "./services/auth/login";
+import Logout from "./services/auth/logout";
+import Register from "./services/auth/register";
 
 function CustomTheme() {
 
@@ -57,6 +60,9 @@ function CustomTheme() {
                 <Routes>
                     <Route exact path="/" element={<RouteService Component={Home}/>}>Accueil</Route>
                     {/*<Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>*/}
+{/*                    <Route exact path="login" element={<RouteService Component={Login}/>}>Login</Route>
+                    <Route exact path="logout" element={<RouteService Component={Logout}/>}>Logout</Route>
+                    <Route exact path="register" element={<RouteService Component={Register}/>}>Logout</Route>*/}
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
