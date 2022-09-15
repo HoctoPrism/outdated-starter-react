@@ -5,10 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import './assets/css/component/_partials/_theme.scss';
 
-import {Provider} from 'react-redux';
-import store from './store'
-
-import RouteService from "./services/route/route-service";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import {lightTheme} from "./component/_partials/_theme/_lightTheme";
@@ -24,6 +20,7 @@ import {Footer} from "./component/_partials/_footer/_footer";
 import Login from "./services/auth/login";
 import Logout from "./services/auth/logout";
 import Register from "./services/auth/register";
+import auth from "./services/auth/token"
 
 function CustomTheme() {
 
@@ -58,11 +55,11 @@ function CustomTheme() {
             <App/>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<RouteService Component={Home}/>}>Accueil</Route>
-                    {/*<Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>*/}
-{/*                    <Route exact path="login" element={<RouteService Component={Login}/>}>Login</Route>
-                    <Route exact path="logout" element={<RouteService Component={Logout}/>}>Logout</Route>
-                    <Route exact path="register" element={<RouteService Component={Register}/>}>Logout</Route>*/}
+                    <Route exact path="/" element={<Home/>}>Accueil</Route>
+                    <Route exact path="login" element={auth.getToken() ? <Home adminMessage='alreadyLogged'/> : <Login/> }>Login</Route>
+                    <Route exact path="register" element={<Register/>}>Inscription</Route>
+                    <Route exact path="logout" element={<Logout/>}>Logout</Route>
+                    <Route exact path="type" element={auth.loggedAndAdmin() ? <Type/> : <Home adminMessage='unauthorizedRole'/> }>Type</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
@@ -79,9 +76,7 @@ function CustomTheme() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <CustomTheme/>
-        </Provider>
+        <CustomTheme/>
     </React.StrictMode>
 );
 
