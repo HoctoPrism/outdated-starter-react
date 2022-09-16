@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import Link from "next/link";
 import {LogginButton} from "../../../services/auth/logginButton";
 
-export function Navbar() {
+export default function Navbar() {
 
     useEffect(() => {
     }, [])

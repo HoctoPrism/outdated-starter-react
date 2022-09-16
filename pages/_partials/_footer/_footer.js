@@ -1,7 +1,7 @@
 import {AppBar, Box, Link} from "@mui/material";
 import {useEffect} from "react";
 
-export function Footer() {
+export default function Footer() {
 
     useEffect(() => {
     }, [])

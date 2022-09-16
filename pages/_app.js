@@ -9,8 +9,8 @@ import {darkTheme} from "./_partials/_theme/_darkTheme";
 import {ColorContext, setThemeToStorage} from "./_partials/_theme/_colorContext.ts";
 import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 
-import {Navbar} from "./_partials/_navbar/_navbar";
-import {Footer} from "./_partials/_footer/_footer";
+import Navbar from "./_partials/_navbar/_navbar";
+import Footer from "./_partials/_footer/_footer";
 import {useEffect} from "react";
 
 function App(props) {
