@@ -110,7 +110,7 @@ function Register () {
     };
 
     return <Box>
-        <Typography variant='h1' sx={{ fontSize: "55px", textAlign: "center" }}>Inscription</Typography>
+        <Typography variant='h1' sx={{ fontSize: "55px", textAlign: "center", mb: 5 }}>Inscription</Typography>
         <Box sx={{ display: "flex" , flexColumn: "row" , alignItems: "center", justifyContent: "center" }}><Button variant="contained" href='login'>Connexion</Button></Box>
         <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => e.key === 'Enter' ? handleSubmit(onSubmit) : null}>
             <Grid container spacing={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>

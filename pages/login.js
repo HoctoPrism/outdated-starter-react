@@ -68,18 +68,13 @@ const handleClickShowPassword = () => {
       <Typography variant="h1" sx={{ fontSize: "55px", textAlign: "center" }}>
         Connexion
       </Typography>
-      <Typography
-        variant="h2"
-        sx={{ fontSize: "25px", textAlign: "center", my: 8 }}
-      >
-        Vous devez être connecté pour accéder au site
-      </Typography>
       <Box
         sx={{
           display: "flex",
           flexColumn: "row",
           alignItems: "center",
           justifyContent: "center",
+          mt: 5
         }}
       >
         <Button href="/register" variant="contained">
