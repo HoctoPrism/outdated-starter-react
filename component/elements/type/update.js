@@ -3,7 +3,8 @@ import {Edit} from "@mui/icons-material";
 import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
-import axios from "../_lib/axios";
+import axios from "axios";
+import auth from "../../services/auth/token";
 
 function Update(props) {
     const [id, setID] = useState("");
@@ -21,7 +22,9 @@ function Update(props) {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
-            let res = await axios.patch("/api/families/" + oneType.id, {name})
+            let res = await axios.patch("/api/types/" + oneType.id, {name}, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})
@@ -65,8 +68,7 @@ function Update(props) {
                                    {...register(
                                        'name',
                                        {
-                                           required: 'Ce champ est requis',
-                                           minLength: {value: 5, message: 'Longueur minimale de 5 caractères'}
+                                           required: 'Ce champ est requis'
                                        }
                                    )}
                                    onChange={(e) => setName(e.target.value)}

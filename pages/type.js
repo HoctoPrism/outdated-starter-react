@@ -14,11 +14,11 @@ import {
     Typography,
     Alert
 } from "@mui/material";
-import Delete from "./delete";
-import New from "./new";
-import Update from "./update";
-import axios from "../_lib/axios";
+import axios from "axios";
 import defineTitle from "../../services/defineTitle";
+import New from "./new";
+import Delete from "./delete";
+import Update from "./update";
 
 function Index() {
 
@@ -43,7 +43,7 @@ function Index() {
     };
 
     useEffect(() => {
-        axios.get('/api/families').then((actualData) => {
+        axios.get('/api/types').then((actualData) => {
             actualData = actualData.data;
             setLoading(true)
             setData(actualData.data);
