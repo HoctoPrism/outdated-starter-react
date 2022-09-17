@@ -3,7 +3,8 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
-import auth from "../../services/auth/token";
+import auth from "../../../services/auth/token";
+
 
 function New(props) {
 

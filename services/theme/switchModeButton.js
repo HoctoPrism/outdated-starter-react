@@ -3,7 +3,7 @@ import DarkIcon from "@mui/icons-material/Brightness4";
 import LightIcon from "@mui/icons-material/Brightness7";
 import React from "react";
 
-import { ColorContext } from "./_colorContext.ts";
+import { ColorContext } from "./colorContext.ts";
 
 export const SwitchModeButton = () => {
   const theme = useTheme();

@@ -1,7 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Alert, Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Snackbar, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import axios from "./_lib/axios";
+import axios from "axios";
 import React, { useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
 import defineTitle from "../services/defineTitle";

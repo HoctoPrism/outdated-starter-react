@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
 import axios from "axios";
-import auth from "../../services/auth/token";
+import auth from "../../../services/auth/token";
 
 function Delete(props) {
 

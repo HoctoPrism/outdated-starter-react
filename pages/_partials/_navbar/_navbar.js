@@ -1,5 +1,5 @@
 import {AppBar, Box, Button} from "@mui/material";
-import {SwitchModeButton} from "../_theme/_switchModeButton";
+import {SwitchModeButton} from "../../../services/theme/switchModeButton";
 import {useEffect} from "react";
 import Link from "next/link";
 import {LogginButton} from "../../../services/auth/logginButton";

@@ -4,14 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-import {lightTheme} from "./_partials/_theme/_lightTheme";
-import {darkTheme} from "./_partials/_theme/_darkTheme";
-import {ColorContext, setThemeToStorage} from "./_partials/_theme/_colorContext.ts";
+import {lightTheme} from "../services/theme/lightTheme";
+import {darkTheme} from "../services/theme/darkTheme";
+import {ColorContext, setThemeToStorage} from "../services/theme/colorContext.ts";
 import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 
 import Navbar from "./_partials/_navbar/_navbar";
 import Footer from "./_partials/_footer/_footer";
 import {useEffect} from "react";
+import Axios from "axios";
+
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 function App(props) {
 

@@ -15,12 +15,12 @@ import {
     Alert
 } from "@mui/material";
 import axios from "axios";
-import defineTitle from "../../services/defineTitle";
-import New from "./new";
-import Delete from "./delete";
-import Update from "./update";
+import defineTitle from "../services/defineTitle";
+import New from "../component/elements/type/new";
+import Update from "../component/elements/type/update";
+import Delete from "../component/elements/type/delete";
 
-function Index() {
+function Type() {
 
     defineTitle('Liste des types');
 
@@ -128,4 +128,4 @@ function Index() {
     </Container>
 }
 
-export default Index;
+export default Type;
