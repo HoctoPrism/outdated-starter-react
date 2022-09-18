@@ -41,13 +41,14 @@ function Delete(props) {
             </Button>
             <Modal
                 id="modal-type-container"
+                className="modal-container"
                 hideBackdrop
                 open={delType}
                 onClose={() => setShowDelete(false)}
                 aria-labelledby="delete-type-title"
                 aria-describedby="child-modal-description"
             >
-                <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
+                <Box className="modal-crud modal-type" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-type-title">Supprimer un type de
                         voiture</Typography>
                     <FormControl>

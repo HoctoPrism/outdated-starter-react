@@ -37,13 +37,14 @@ function New(props) {
         <Button variant="contained" onClick={() => setShowNew(true)}>Ajouter</Button>
         <Modal
             id="modal-type-container"
+            className="modal-container"
             hideBackdrop
             open={newType}
             onClose={() => setShowNew(false)}
             aria-labelledby="new-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de voiture</Typography>
                 <form onSubmit={handleSubmit(newTypeForm)}>
                     <FormControl>

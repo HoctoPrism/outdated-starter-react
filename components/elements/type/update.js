@@ -47,13 +47,14 @@ function Update(props) {
           </Button>
          <Modal
             id="modal-type-container"
+            className="modal-container"
             hideBackdrop
             open={editType}
             onClose={() => setShowEdit(false)}
             aria-labelledby="edit-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de voiture</Typography>
                 <form onSubmit={handleSubmit(editTypeForm)}>
                     <FormControl>
