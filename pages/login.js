@@ -60,7 +60,7 @@ export default function Login({csrfToken = getCsrfToken()}) {
                 router.back()
             }
             if (error) {
-                setToastMessage({message: "Une erreur est survenue", severity: "error"});
+                setToastMessage({message: "Identifiants incorrects", severity: "error"});
                 setShowToast(true);
             }
         } catch (err) {

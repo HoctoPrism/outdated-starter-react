@@ -12,7 +12,7 @@ import {
     TablePagination,
     TableRow,
     Typography,
-    Alert
+    Alert, Button
 } from "@mui/material";
 import axios from "axios";
 import defineTitle from "../services/defineTitle";
@@ -20,7 +20,6 @@ import New from "../components/elements/type/new";
 import Update from "../components/elements/type/update";
 import Delete from "../components/elements/type/delete";
 import {useSession} from "next-auth/react";
-import {useRouter} from "next/router";
 
 function Type() {
 
@@ -36,7 +35,6 @@ function Type() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const { data: session, status } = useSession();
-    const router = useRouter();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -77,10 +75,13 @@ function Type() {
         return  <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement...</Typography>
     }
     if (status === "unauthenticated") {
-        return router.push({pathname: '/', query: {adminMessage: 'unauthorizedRole'}}, undefined, { shallow: true });
+        return <Box className="f-c-c-c">
+            <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Vous devez être connecté pour accéder à cette ressource</Typography>
+            <Button variant="contained" sx={{ mt: 5 }} href="login">Connexion</Button>
+        </Box>
     }
-    if (session && session?.user?.role !== "ROLE_ADMIN"){
-        return router.push({pathname: '/', query: {adminMessage: 'unauthorizedRole'}}, undefined, { shallow: true });
+    if (session && session?.role !== "ROLE_ADMIN"){
+        return  <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Vous n&apos;êtes pas autorisé à accéder à cette ressource...</Typography>
     }
 
     return <Container maxWidth="md" id="type">
