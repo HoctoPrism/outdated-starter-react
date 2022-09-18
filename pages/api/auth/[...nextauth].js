@@ -25,10 +25,10 @@ export const authOptions = {
                     "headers": {"Content-Type": "multipart/form-data"}
                 });
 
-                finalUser = res.data.user;
+                finalUser = res.data;
 
                 if (res) {
-                    return finalUser
+                    return finalUser.user
                 } else {
                     return new Error( JSON.stringify({ errors: finalUser.errors, status: false }))
                 }
@@ -37,9 +37,10 @@ export const authOptions = {
     ],
     callbacks: {
         async session({session, token, user}) {
-            session.user.role = JSON.parse(finalUser.roles).toString();
-            session.user.expToken = token.exp
-            session.accessToken = token
+            if (!session?.user) {
+                return session
+            }
+            session.role = finalUser?.user?.roles;
             return session
         }
     }
