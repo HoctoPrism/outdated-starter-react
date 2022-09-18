@@ -4,8 +4,6 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
-import auth from "../../../services/auth/token";
-
 
 function Update(props) {
     const [id, setID] = useState("");
@@ -23,9 +21,7 @@ function Update(props) {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
-            let res = await axios.patch("/api/types/" + oneType.id, {name}, {
-                "headers" : {"Authorization":"Bearer"+auth.getToken()}
-            })
+            let res = await axios.patch("/api/types/" + oneType.id, {name})
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})

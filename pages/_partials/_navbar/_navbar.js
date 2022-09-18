@@ -2,7 +2,7 @@ import {AppBar, Box, Button} from "@mui/material";
 import {SwitchModeButton} from "../../../services/theme/switchModeButton";
 import {useEffect} from "react";
 import Link from "next/link";
-import {LogginButton} from "../../../services/auth/logginButton";
+import LoginBtn from "../../../components/login-btn";
 
 export default function Navbar() {
 
@@ -15,8 +15,8 @@ export default function Navbar() {
                 <Box sx={{m: 5, flexGrow: 1}} component="div">React-Next-Starter</Box>
                 <Box className="navbar">
                     <Link href='/'><Button color="secondary">Accueil</Button></Link>
-                    {/*<Link href='type'><Button color="secondary">Type</Button></Link>*/}
-                    <LogginButton/>
+                    <Link href='/type'><Button color="secondary">Type</Button></Link>
+                    <LoginBtn/>
                     <SwitchModeButton/>
                 </Box>
             </AppBar>

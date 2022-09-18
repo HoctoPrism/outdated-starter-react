@@ -1,26 +1,30 @@
 import {useEffect, useRef, useState} from "react";
-import {useForm, Controller} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {
     Alert,
     Box,
     Button,
     FormControl,
     Grid,
-    IconButton, Input,
+    IconButton,
+    Input,
     InputAdornment,
-    InputLabel, Snackbar,
+    InputLabel,
+    Snackbar,
     TextField,
     Typography
 } from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import axios from "axios";
 import defineTitle from "../services/defineTitle";
+import {useRouter} from "next/router";
+import {signIn} from "next-auth/react";
 
-function Register () {
+function Register() {
 
     defineTitle('Inscription au site');
 
-    const { register, watch, control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "onChange" });
+    const {register, watch, control, handleSubmit, formState: {errors, isDirty, isValid}} = useForm({mode: "onChange"});
 
     const email = watch('email', "");
     const password = watch('password', "");
@@ -29,10 +33,11 @@ function Register () {
     const firstname = watch('firstname', "");
 
     const [showPassword, setShowPassword] = useState(false);
-    const [toast , setShowToast] = useState(false);
+    const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
     const [errMessage, setErrMessage] = useState("");
     const onSubmit = e => registerForm();
+    const router = useRouter();
 
     const min = useRef()
     const max = useRef()
@@ -86,18 +91,39 @@ function Register () {
             formData.append("firstname", firstname);
 
             let res = await axios.post('http://127.0.0.1:8000/api/register/', formData, {
-                "headers" : { "Content-Type":"multipart/form-data" }
+                "headers": {"Content-Type": "multipart/form-data"}
             });
             if (res.status === 200) {
                 setErrMessage('')
-                localStorage.setItem('access_token', res.data.token)
-                // reidreciton à finir ici
+                const {ok, error, url, status} = await signIn("credentials", {
+                    redirect: false,
+                    email: email,
+                    password: password,
+                    callbackUrl: `${window.location.origin}/`,
+                });
+                if (ok) {
+                    setToastMessage({message: "Vous êtes enregistré et vous allez être redirigé", severity: "success"});
+                    setShowToast(true);
+                    setTimeout(async () => {
+                        await router.push(url);
+                    }, 2000)
+
+                }
             } else {
                 setToastMessage({message: "Une erreur est survenue", severity: "error"});
                 setShowToast(true);
             }
         } catch (err) {
-            console.log(err);
+            let errors = err.response.data;
+            if (errors.errors){
+                for (const [key, value] of Object.entries(errors.errors)) {
+                    setToastMessage({message: value, severity: "error"});
+                    setShowToast(true);
+                }
+            } else if (errors.message){
+                setToastMessage({message: errors.message, severity: "error"});
+                setShowToast(true);
+            }
         }
     }
 
@@ -110,11 +136,12 @@ function Register () {
     };
 
     return <Box>
-        <Typography variant='h1' sx={{ fontSize: "55px", textAlign: "center", mb: 5 }}>Inscription</Typography>
-        <Box sx={{ display: "flex" , flexColumn: "row" , alignItems: "center", justifyContent: "center" }}><Button variant="contained" href='login'>Connexion</Button></Box>
+        <Typography variant='h1' sx={{fontSize: "55px", textAlign: "center", mb: 5}}>Inscription</Typography>
+        <Box sx={{display: "flex", flexColumn: "row", alignItems: "center", justifyContent: "center"}}><Button
+            variant="contained" href='signin'>Connexion</Button></Box>
         <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => e.key === 'Enter' ? handleSubmit(onSubmit) : null}>
-            <Grid container spacing={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Grid item sx={{ maxWidth: '400px' }}>
+            <Grid container spacing={12} sx={{alignItems: 'center', justifyContent: 'center'}}>
+                <Grid item sx={{maxWidth: '400px'}}>
                     <Controller
                         name="username"
                         control={control}
@@ -135,7 +162,7 @@ function Register () {
                         )}
                     />
                     {errors.username ? (
-                        <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.username?.message}</Alert>
+                        <Alert sx={{mt: 2, p: 0, pl: 2}} severity="error">{errors.username?.message}</Alert>
                     ) : ''}
                     <Controller
                         name="email"
@@ -161,7 +188,7 @@ function Register () {
                         )}
                     />
                     {errors.email ? (
-                        <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.email?.message}</Alert>
+                        <Alert sx={{mt: 2, p: 0, pl: 2}} severity="error">{errors.email?.message}</Alert>
                     ) : ''}
                     <Controller
                         name="firstname"
@@ -183,7 +210,7 @@ function Register () {
                         )}
                     />
                     {errors.firstname ? (
-                        <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.firstname?.message}</Alert>
+                        <Alert sx={{mt: 2, p: 0, pl: 2}} severity="error">{errors.firstname?.message}</Alert>
                     ) : ''}
                     <Controller
                         name="lastname"
@@ -205,14 +232,14 @@ function Register () {
                         )}
                     />
                     {errors.lastname ? (
-                        <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.lastname?.message}</Alert>
+                        <Alert sx={{mt: 2, p: 0, pl: 2}} severity="error">{errors.lastname?.message}</Alert>
                     ) : ''}
                     <Controller
                         name="password"
                         control={control}
                         defaultValue=""
                         render={() => (<FormControl fullWidth sx={{mt: 5, height: 50}}>
-                                <InputLabel htmlFor="password" sx={{ left: '-15px' }}>Password</InputLabel>
+                                <InputLabel htmlFor="password" sx={{left: '-15px'}}>Password</InputLabel>
                                 <Input
                                     {...register(
                                         'password', {
@@ -229,13 +256,13 @@ function Register () {
                                     variant="standard"
                                     value={password}
                                     endAdornment={
-                                        <InputAdornment position="end" sx={{ color: "inherit" }}>
+                                        <InputAdornment position="end" sx={{color: "inherit"}}>
                                             <IconButton
                                                 color="inherit"
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={(e) => e.preventDefault()}
                                             >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                {showPassword ? <VisibilityOff/> : <Visibility/>}
                                             </IconButton>
                                         </InputAdornment>
                                     }
@@ -244,30 +271,36 @@ function Register () {
                         )}
                     />
                     {errors.password ? (
-                        <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.password?.message}</Alert>
+                        <Alert sx={{mt: 2, p: 0, pl: 2}} severity="error">{errors.password?.message}</Alert>
                     ) : ''}
 
                     <Box className="regex">
-                        <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                             <Box ref={min} className="bubble"></Box>
                             <Box>Le mot de passe doit contenir au moins une minuscule</Box>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                             <Box ref={max} className="bubble"></Box>
                             <Box>Le mot de passe doit contenir au moins une majuscule</Box>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                             <Box ref={num} className="bubble"></Box>
                             <Box>Le mot de passe doit contenir au moins un chiffre</Box>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                        <Box sx={{display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
                             <Box ref={spec} className="bubble"></Box>
                             <Box>Le mot de passe doit contenir au moins un caractère spécial</Box>
                         </Box>
                     </Box>
                 </Grid>
             </Grid>
-            <Grid item sx={{ minwidth: '100%',display: "flex" , flexColumn: "column" , alignItems: "center", justifyContent: "center" }}>
+            <Grid item sx={{
+                minwidth: '100%',
+                display: "flex",
+                flexColumn: "column",
+                alignItems: "center",
+                justifyContent: "center"
+            }}>
                 <Button type="submit" disabled={!isDirty || !isValid} variant="contained" sx={{m: 8}}>VALIDER</Button>
             </Grid>
         </form>

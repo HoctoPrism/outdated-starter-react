@@ -1,12 +1,31 @@
-import {useRouter} from "next/router";
+import {getCsrfToken, signOut, useSession} from "next-auth/react"
+import React, {useState} from 'react';
+import {Box, Button, Modal, Typography} from "@mui/material";
 
-function Logout () {
-    const router = useRouter()
-    if (typeof window !== "undefined") {
-        localStorage.removeItem('access_token');
-        router.push('/')
-        return true
-    }
+export default function Logout({csrfToken = getCsrfToken()}) {
+
+    const {data: session, status} = useSession();
+    const [logout, setShowLogout] = useState(false)
+
+    return (
+        <Box>
+            <Button color="secondary" onClick={() => setShowLogout(true)}>Déconnexion</Button>
+            <Modal
+                id="modal-logout-container"
+                hideBackdrop
+                open={logout}
+                onClose={() => setShowLogout(false)}
+                aria-labelledby="logout-title"
+                aria-describedby="child-modal-description"
+            >
+                <Box className="modal-logout">
+                    <Typography>Êtes vous sur de vouloir vous déconnecter ?</Typography>
+                    <Box className="action-button">
+                         <Button variant="contained" sx={{m: 3}} onClick={() => signOut()}>Oui</Button>
+                         <Button variant="outlined" onClick={() => setShowLogout(false)}>Non</Button>
+                    </Box>
+                </Box>
+            </Modal>
+        </Box>
+    )
 }
-
-export default Logout

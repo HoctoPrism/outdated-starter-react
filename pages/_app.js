@@ -13,13 +13,18 @@ import Navbar from "./_partials/_navbar/_navbar";
 import Footer from "./_partials/_footer/_footer";
 import {useEffect} from "react";
 import Axios from "axios";
+import {SessionProvider} from "next-auth/react";
+import AdminMessage from "../services/adminMessage";
+import {useRouter} from "next/router";
 
 Axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 function App(props) {
 
-    const { Component, pageProps } = props;
+  const { Component, pageProps: { session, ...pageProps } } = props;
+
+  const { query } = useRouter();
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -60,11 +65,16 @@ function App(props) {
         return <ColorContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline enableColorScheme/>
-                <Navbar/>
-                <Container maxWidth="lg" className='main-container'>
-                    <Component {...pageProps} />
-                </Container>
-                <Footer />
+                <SessionProvider session={session}>
+                    <Navbar/>
+                    <Container maxWidth="lg" className='main-container'>
+                        <Component {...pageProps} />
+                        {query.adminMessage ? (
+                            <AdminMessage adminMessage={query.adminMessage}/>
+                        ) : null}
+                    </Container>
+                    <Footer />
+                </SessionProvider>
             </ThemeProvider>
         </ColorContext.Provider>
     }
