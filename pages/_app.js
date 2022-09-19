@@ -49,7 +49,6 @@ function App(props) {
             []
         );
         const theme = React.useMemo(
-        // @ts-ignore
             () => createTheme(mode === "light" ? lightTheme : darkTheme),
             [mode]
         );
@@ -61,7 +60,7 @@ function App(props) {
                 setMode(mode);
             }
         }, []);
-        // @ts-ignore
+
         return <ColorContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline enableColorScheme/>
