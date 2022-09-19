@@ -41,6 +41,7 @@ export const authOptions = {
                 return session
             }
             session.role = finalUser?.user?.roles;
+            session.jwt = finalUser?.token;
             return session
         }
     }

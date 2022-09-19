@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
 import axios from "axios";
+import {useSession} from "next-auth/react";
 
 function Delete(props) {
 
@@ -11,10 +12,21 @@ function Delete(props) {
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
 
+    const { data: session, status } = useSession();
+
     let deleteType = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.delete('/api/types/' + oneType.id)
+
+            // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
+            let auth = {};
+            if (!session?.jwt && session?.role !== "ROLE_ADMIN") {
+                return auth
+            } else {
+                auth = { "headers" : {"Authorization":"Bearer"+session?.jwt} }
+            }
+
+            let res = await axios.delete('/api/types/' + oneType.id, auth)
             if (res.status === 200) {
                 const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})

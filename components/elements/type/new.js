@@ -3,6 +3,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import {useSession} from "next-auth/react";
 
 function New(props) {
 
@@ -14,9 +15,20 @@ function New(props) {
     const [toastMessage, setToastMessage] = useState({});
     const { register, control, handleSubmit, formState: { errors } } = useForm({defaultValues: {name: ''}});
 
+    const { data: session, status } = useSession();
+
     let newTypeForm = async () => {
         try {
-            let res = await axios.post('/api/types', {name})
+
+            // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
+            let auth = {};
+            if (!session?.jwt && session?.role !== "ROLE_ADMIN") {
+                return auth
+            } else {
+                auth = { "headers" : {"Authorization":"Bearer"+session?.jwt} }
+            }
+
+            let res = await axios.post('/api/types', {name}, auth)
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);
