@@ -18,7 +18,7 @@ export default function Navbar() {
                 <Box sx={{m: 5, flexGrow: 1}} component="div">React-Next-Starter</Box>
                 <Box className="navbar">
                     <Link href='/'><Button color="secondary">Accueil</Button></Link>
-                    {session && session?.role === "ROLE_ADMIN" ? (
+                    {session && session?.user?.role === "ROLE_ADMIN" ? (
                         <Link href='/type'><Button color="secondary">Type</Button></Link>
                     ) : null}
                     <LoginBtn/>

@@ -23,10 +23,10 @@ function Update(props) {
 
             // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
             let auth = {};
-            if (!session?.jwt && session?.role !== "ROLE_ADMIN") {
+            if (!session?.user?.token && session?.user?.role !== "ROLE_ADMIN") {
                 return auth
             } else {
-                auth = { "headers" : {"Authorization":"Bearer"+session?.jwt} }
+                auth = { "headers" : {"Authorization":"Bearer"+session?.user?.token} }
             }
 
             let updatedPark = {

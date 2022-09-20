@@ -1,8 +1,10 @@
 import NextAuth from "next-auth"
 import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials"
+import jwt_decode from "jwt-decode";
 
 let finalUser = {};
+let jwtToken = "";
 
 export const authOptions = {
     session: {
@@ -11,6 +13,7 @@ export const authOptions = {
     pages: {
         signIn: "/login",
     },
+    secret: process.env.NEXTAUTH_SECRET,
     // Configure one or more authentication providers
     providers: [
         CredentialsProvider({
@@ -25,10 +28,17 @@ export const authOptions = {
                     "headers": {"Content-Type": "multipart/form-data"}
                 });
 
-                finalUser = res.data;
-
+                // On attend dans le retour un token JWT contenant un name, email et roles
                 if (res) {
-                    return finalUser.user
+                    jwtToken = res.data.token;
+                    let token = jwt_decode(res.data.token);
+                    finalUser = {
+                        name: token.name,
+                        email: token.email,
+                        role: token.roles,
+                        token: jwtToken
+                    }
+                    return finalUser
                 } else {
                     return new Error( JSON.stringify({ errors: finalUser.errors, status: false }))
                 }
@@ -40,8 +50,7 @@ export const authOptions = {
             if (!session?.user) {
                 return session
             }
-            session.role = finalUser?.user?.roles;
-            session.jwt = finalUser?.token;
+            session.user = finalUser
             return session
         }
     }
