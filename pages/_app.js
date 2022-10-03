@@ -1,6 +1,6 @@
 import '../styles/App.scss';
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
@@ -11,7 +11,6 @@ import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material"
 
 import Navbar from "./_partials/_navbar/_navbar";
 import Footer from "./_partials/_footer/_footer";
-import {useEffect} from "react";
 import Axios from "axios";
 import {SessionProvider} from "next-auth/react";
 import AdminMessage from "../services/adminMessage";
@@ -22,17 +21,17 @@ Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 function App(props) {
 
-  const { Component, pageProps: { session, ...pageProps } } = props;
+    const {Component, pageProps: {session, ...pageProps}} = props;
 
-  const { query } = useRouter();
+    const {query} = useRouter();
 
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
+    React.useEffect(() => {
+        // Remove the server-side injected CSS.
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles) {
+            jssStyles.parentElement.removeChild(jssStyles);
+        }
+    }, []);
 
     function CustomTheme() {
 
@@ -72,7 +71,7 @@ function App(props) {
                             <AdminMessage adminMessage={query.adminMessage}/>
                         ) : null}
                     </Container>
-                    <Footer />
+                    <Footer/>
                 </SessionProvider>
             </ThemeProvider>
         </ColorContext.Provider>
@@ -80,7 +79,7 @@ function App(props) {
 
     return <React.Fragment>
         <Head>
-            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
         </Head>
         <CustomTheme/>
     </React.Fragment>
@@ -88,8 +87,8 @@ function App(props) {
 }
 
 App.propTypes = {
-  Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
+    Component: PropTypes.elementType.isRequired,
+    pageProps: PropTypes.object.isRequired,
 };
 
 export default App
