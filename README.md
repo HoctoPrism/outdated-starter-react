@@ -1,5 +1,7 @@
 # Starter React
 
+# Outdated version of the starter, I'm working on a new one for NextJS using typescript
+
 Ce projet est un projet personnel me permettant d'avoir un starter avec des dépendances que j'utilise qui sont préconfigurés.
 Ce projet évoluera au fil du temps, il est prévu d'y intégrer dans le futur nextjs.
 
